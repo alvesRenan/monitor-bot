@@ -37,7 +37,7 @@ class MonitorTask:
             self.MERCURIO.send_message(self.CHAT_ID, monitor_status_text)
 
         if NEW_STATUS != self.STATUS:
-            monitor_status_text = f'O estado da aplicação mudou, o atual estado é: {NEW_STATUS}'
+            monitor_status_text = f'O estado da aplicação {self.APP_NAME} mudou, o atual estado é: {NEW_STATUS}'
             self.MERCURIO.send_message(self.CHAT_ID, monitor_status_text)
 
             self.STATUS = NEW_STATUS
