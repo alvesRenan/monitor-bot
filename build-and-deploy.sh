@@ -10,4 +10,5 @@ docker login -u renanalves -p "${1}"
 docker push renanalves/bot-monitor
 
 sed -i 's@KEY_VALUE@'"${2}"'@' k8s-files/deployment.yaml
+kubectl delete -f k8s-files
 kubectl apply -f k8s-files
