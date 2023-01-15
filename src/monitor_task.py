@@ -37,6 +37,8 @@ class MonitorTask:
                 monitor_status_text = 'Aplicação não encontrada'
                 self.MERCURIO.send_message(self.CHAT_ID, monitor_status_text)
 
+                self.STATUS = 'Stopped'
+
             if NEW_STATUS != self.STATUS:
                 monitor_status_text = f'O estado da aplicação {self.APP_NAME} mudou, o atual estado é: {NEW_STATUS}'
                 self.MERCURIO.send_message(self.CHAT_ID, monitor_status_text)
