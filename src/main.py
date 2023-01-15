@@ -5,7 +5,7 @@ import telebot
 
 from monitor_task import *
 
-mercurio = telebot.TeleBot(getenv('APP_KEY'))
+mercurio = telebot.TeleBot(getenv('API_KEY'))
 
 @mercurio.message_handler(commands=['start'])
 def res(message):
