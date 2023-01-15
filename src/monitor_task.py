@@ -10,7 +10,7 @@ class MonitorTask:
     def __init__(self, mercurio_bot, chat_id, app_name) -> None:
         self.CONFIG = config.load_incluster_config()
         self.CLI = client.CoreV1Api()
-        self.STATUS = 'Running'
+        self.STATUS = 'Stopped'
 
         self.MERCURIO = mercurio_bot
         self.CHAT_ID = chat_id
