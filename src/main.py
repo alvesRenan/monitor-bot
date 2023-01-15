@@ -1,3 +1,4 @@
+from logger import Log
 from os import getenv
 
 import telebot
@@ -12,5 +13,5 @@ def res(message):
 
     mercurio.reply_to(message, f'Monitoramento iniciado, updates serão enviadas para este chat ({message.chat.title})')
 
-print( 'Mercúrio está executando' )
+Log().info( 'Mercúrio está executando' )
 mercurio.polling()

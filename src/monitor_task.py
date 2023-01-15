@@ -1,6 +1,6 @@
+from logger import Log
 from threading import Thread
 from time import sleep
-from logging import log
 
 from kubernetes import client, config
 
@@ -41,6 +41,6 @@ class MonitorTask:
 
             self.STATUS = NEW_STATUS
         
-        log(f'Status atual da aplicação {self.APP_NAME}: {NEW_STATUS}')
+        Log().info(f'Status atual da aplicação {self.APP_NAME}: {NEW_STATUS}')
         
         sleep(1)
