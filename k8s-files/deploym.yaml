@@ -1,0 +1,22 @@
+kind: Deployment
+metadata:
+  name: bot-monitor
+  labels:
+    app: bot-monitor
+spec:
+  selector:
+    matchLabels: 
+      app: bot-monitor
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bot-monitor
+    spec:
+      containers:
+      - image:  renanalves/bot-monitor
+        imagePullPolicy: Always
+        name:  bot-monitor
+      env:
+        - name: API_KEY
+          value: "KEY_VALUE"
