@@ -41,6 +41,6 @@ class MonitorTask:
 
             self.STATUS = NEW_STATUS
         
-        Log().info(f'Status atual da aplicação {self.APP_NAME}: {NEW_STATUS}')
+        Log().log(f'Status atual da aplicação {self.APP_NAME}: {NEW_STATUS}')
         
         sleep(1)

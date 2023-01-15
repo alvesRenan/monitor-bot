@@ -13,5 +13,5 @@ def res(message):
 
     mercurio.reply_to(message, f'Monitoramento iniciado, updates serão enviadas para este chat ({message.chat.title})')
 
-Log().info( 'Mercúrio está executando' )
+Log().log( 'Mercúrio está executando' )
 mercurio.polling()
