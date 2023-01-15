@@ -1,5 +1,6 @@
 from threading import Thread
 from time import sleep
+from logging import log
 
 from kubernetes import client, config
 
@@ -38,6 +39,8 @@ class MonitorTask:
             monitor_status_text = f'O estado da aplicação mudou, o atual estado é: {NEW_STATUS}'
             self.MERCURIO.send_message(id, monitor_status_text)
 
-        self.STATUS = NEW_STATUS
+            self.STATUS = NEW_STATUS
         
-        sleep(5)
+        log(f'Status atual da aplicação {self.APP_NAME}: {NEW_STATUS}')
+        
+        sleep(1)
