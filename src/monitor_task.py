@@ -1,32 +1,43 @@
+from threading import Thread
 from time import sleep
+
 from kubernetes import client, config
 
-CONFIG = config.load_incluster_config()
-CLI = client.CoreV1Api()
-STATUS = 'Running'
 
-def check_status(app_name):
-    pods = CLI.list_pod_for_all_namespaces(watch=False)
+class MonitorTask:
 
-    for pod in pods.items:
-        if pod.metadata.labels.get('app') == app_name:
-            return pod.status.phase
+    def __init__(self, mercurio_bot, chat_id, app_name) -> None:
+        self.CONFIG = config.load_incluster_config()
+        self.CLI = client.CoreV1Api()
+        self.STATUS = 'Running'
+
+        self.MERCURIO = mercurio_bot
+        self.CHAT_ID = chat_id
+        self.APP_NAME = app_name
     
-    return None
+    def run(self):
+        Thread( target=self.monitor_task ).start()
 
-def monitor_task(mercurio, id, app_name):
-    NEW_STATUS = check_status(app_name)
+    def check_status(self):
+        pods = self.CLI.list_pod_for_all_namespaces(watch=False)
 
-    if STATUS == None:
-        monitor_status_text = f'Aplicação não encontrada'
-        mercurio.send_message(id, monitor_status_text)
-
-    if NEW_STATUS != STATUS:
-        monitor_status_text = f'O estado da aplicação mudou, o atual estado é: {NEW_STATUS}'
-        mercurio.send_message(id, monitor_status_text)
-
-    STATUS = NEW_STATUS
-    
-    sleep(5)
-
+        for pod in pods.items:
+            if pod.metadata.labels.get('app') == self.APP_NAME:
+                return pod.status.phase
         
+        return None
+
+    def monitor_task(self) -> None:
+        NEW_STATUS = self.check_status()
+
+        if self.STATUS == None:
+            monitor_status_text = 'Aplicação não encontrada'
+            self.MERCURIO.send_message(id, monitor_status_text)
+
+        if NEW_STATUS != self.STATUS:
+            monitor_status_text = f'O estado da aplicação mudou, o atual estado é: {NEW_STATUS}'
+            self.MERCURIO.send_message(id, monitor_status_text)
+
+        self.STATUS = NEW_STATUS
+        
+        sleep(5)

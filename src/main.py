@@ -1,15 +1,14 @@
 from os import getenv
-from threading import Thread
 
 import telebot
 
-from monitor_task import *
+from monitor_task import MonitorTask
 
 mercurio = telebot.TeleBot(getenv('API_KEY'))
 
 @mercurio.message_handler(commands=['start'])
 def res(message):
-    Thread( target=monitor_task, args=(mercurio, message.chat.id, 'test-app') ).start()
+    MonitorTask(mercurio, message.chat.id, 'test-app').run()
 
     mercurio.reply_to(message, f'Monitoramento iniciado, updates serão enviadas para este chat ({message.chat.title})')
 
