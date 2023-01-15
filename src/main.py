@@ -1,11 +1,11 @@
-from os import environ
+from os import getenv
 from threading import Thread
 
 import telebot
 
 from monitor_task import *
 
-mercurio = telebot.TeleBot(environ('APP_KEY'))
+mercurio = telebot.TeleBot(getenv('APP_KEY'))
 
 @mercurio.message_handler(commands=['start'])
 def res(message):
