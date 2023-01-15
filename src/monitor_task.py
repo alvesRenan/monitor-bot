@@ -29,20 +29,27 @@ class MonitorTask:
         return None
 
     def monitor_task(self) -> None:
+        erro_notification_sent = False
+
         while True:
             NEW_STATUS = self.check_status()
             Log().log(f'Status atual da aplicação {self.APP_NAME}: {NEW_STATUS}')
 
             if self.STATUS == None:
-                monitor_status_text = 'Aplicação não encontrada'
-                self.MERCURIO.send_message(self.CHAT_ID, monitor_status_text)
+                if not erro_notification_sent:
+                    monitor_status_text = 'Não foi possível checar o status da aplicação, ela pode ter caído ou está sendo atualizada.'
+                    self.MERCURIO.send_message(self.CHAT_ID, monitor_status_text)
 
-                break
+                    erro_notification_sent = True
+                
 
             if NEW_STATUS != self.STATUS:
-                monitor_status_text = f'O estado da aplicação {self.APP_NAME} mudou, o atual estado é: {NEW_STATUS}'
+                monitor_status_text = f'O estado da aplicação {self.APP_NAME} mudou, o atual estado é: {NEW_STATUS}.'
                 self.MERCURIO.send_message(self.CHAT_ID, monitor_status_text)
 
-                self.STATUS = NEW_STATUS
+                erro_notification_sent = False
+
+            
+            self.STATUS = NEW_STATUS
             
             sleep(1)
