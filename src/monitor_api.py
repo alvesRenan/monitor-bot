@@ -23,7 +23,7 @@ class MonitorAPI:
 
         while True:
             try:
-                res = json.loads( requests.get('http://test-app:5000/status').text )
+                res = json.loads( requests.get('http://test-app-svc:5000/status').text )
                 code = res.get('code')
                 Log().log(f'Status retornado pela API: {res.text}')
 
