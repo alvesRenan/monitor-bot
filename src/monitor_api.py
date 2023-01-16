@@ -36,9 +36,10 @@ class MonitorAPI:
                     
                     self.MERCURIO.send_message(self.CHAT_ID, text)
                 
-                last_status = res.get('code')
+                last_status = code
                     
-            except:
+            except Exception as e:
+                Log().log(e)
                 Log().log(f'Erro ao tentar acessar a API')
             
             sleep(1)
