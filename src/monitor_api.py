@@ -25,7 +25,7 @@ class MonitorAPI:
             try:
                 res = json.loads( requests.get('http://test-app-svc:5000/status').text )
                 code = res.get('code')
-                Log().log(f'Status retornado pela API: {res.text}')
+                Log().log(f'Status retornado pela API: {code}')
 
                 if last_status != code:
                     if code == 200:
